@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from '../Shared/UI/Card';
 import Loader from '../Shared/UI/Loader';
@@ -26,22 +26,20 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
   
   // Fetch user profile
-  const { data: profile, isLoading, error } = useQuery(
-    ['userProfile', user?.id], 
-    () => fetchUserProfile(user?.id),
-    {
-      enabled: !!user?.id,
-      onSuccess: (data) => {
-        setFormData(prev => ({
-          ...prev,
-          ...data
-        }));
-      }
+  const { data: profile, isLoading, error } = useQuery({
+    queryKey: ['userProfile', user?.id],
+    queryFn: () => fetchUserProfile(user?.id),
+    enabled: !!user?.id,
+    onSuccess: (data) => {
+      setFormData(prev => ({
+        ...prev,
+        ...data
+      }));
     }
-  );
-  
+  });
   // Update profile mutation
-  const updateProfileMutation = useMutation(updateUserProfile, {
+  const updateProfileMutation = useMutation({
+    mutationFn: updateUserProfile,
     onSuccess: (data) => {
       dispatch(updateUser(data));
     }

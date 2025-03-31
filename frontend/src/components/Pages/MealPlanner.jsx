@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import Card from '../Shared/UI/Card';
 import Modal from '../Shared/UI/Modal';
 import Loader from '../Shared/UI/Loader';
 import MealForm from '../Shared/Forms/MealForm';
-import { 
-  fetchMealPlans, 
-  fetchFoods, 
-  createMealPlan, 
-  updateMealPlan, 
-  deleteMealPlan 
+import {
+  fetchMealPlans,
+  fetchFoods,
+  createMealPlan,
+  updateMealPlan,
+  deleteMealPlan
 } from '../../utils/api';
 import '../../styles/MealPlanner.css';
 
@@ -26,45 +26,42 @@ const MealPlanner = () => {
     return date.toISOString().split('T')[0];
   };
   
-  // Fetch meal plans
-  const { data: mealPlans, isLoading: isLoadingMeals, error: mealsError } = useQuery(
-    ['mealPlans', user?.id, formatDate(selectedDate)], 
-    () => fetchMealPlans(user?.id, formatDate(selectedDate)),
-    {
-      enabled: !!user?.id,
-    }
-  );
+  // Fetch meal plans - Using v5 object syntax
+  const { data: mealPlans, isLoading: isLoadingMeals, error: mealsError } = useQuery({
+    queryKey: ['mealPlans', user?.id, formatDate(selectedDate)],
+    queryFn: () => fetchMealPlans(user?.id, formatDate(selectedDate)),
+    enabled: !!user?.id,
+  });
   
-  // Fetch foods for meal creation
-  const { data: foods, isLoading: isLoadingFoods } = useQuery(
-    ['foods', user?.id], 
-    () => fetchFoods(user?.id),
-    {
-      enabled: !!user?.id,
-    }
-  );
+  // Fetch foods for meal creation - Using v5 object syntax
+  const { data: foods, isLoading: isLoadingFoods } = useQuery({
+    queryKey: ['foods', user?.id],
+    queryFn: () => fetchFoods(user?.id),
+    enabled: !!user?.id,
+  });
   
   // Create meal plan mutation
-  const createMealMutation = useMutation(createMealPlan, {
+  const createMealMutation = useMutation({
+    mutationFn: createMealPlan,
     onSuccess: () => {
-      queryClient.invalidateQueries(['mealPlans', user?.id, formatDate(selectedDate)]);
+      queryClient.invalidateQueries({ queryKey: ['mealPlans', user?.id, formatDate(selectedDate)] });
       setShowAddModal(false);
     }
   });
   
-  // Update meal plan mutation
-  const updateMealMutation = useMutation(updateMealPlan, {
+  const updateMealMutation = useMutation({
+    mutationFn: updateMealPlan,
     onSuccess: () => {
-      queryClient.invalidateQueries(['mealPlans', user?.id, formatDate(selectedDate)]);
+      queryClient.invalidateQueries({ queryKey: ['mealPlans', user?.id, formatDate(selectedDate)] });
       setShowAddModal(false);
       setEditingMeal(null);
     }
   });
   
-  // Delete meal plan mutation
-  const deleteMealMutation = useMutation(deleteMealPlan, {
+  const deleteMealMutation = useMutation({
+    mutationFn: deleteMealPlan,
     onSuccess: () => {
-      queryClient.invalidateQueries(['mealPlans', user?.id, formatDate(selectedDate)]);
+      queryClient.invalidateQueries({ queryKey: ['mealPlans', user?.id, formatDate(selectedDate)] });
     }
   });
   

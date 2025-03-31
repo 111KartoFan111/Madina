@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loader from '../UI/Loader';
-import '../../styles/Forms.css';
+import '../../../styles/Forms.css';
 
 const MealForm = ({ foods, initialData, onSubmit, isLoading }) => {
   const [formData, setFormData] = useState({

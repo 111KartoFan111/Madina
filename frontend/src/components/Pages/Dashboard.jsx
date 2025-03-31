@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import Card from '../Shared/UI/Card';
 import Loader from '../Shared/UI/Loader';
@@ -9,14 +9,12 @@ import '../../styles/Dashboard.css';
 const Dashboard = () => {
   const { user } = useSelector(state => state.auth);
 
-  const { data, isLoading, error } = useQuery(
-    ['dashboardData', user?.id], 
-    () => fetchDashboardData(user?.id),
-    {
-      enabled: !!user?.id,
-      staleTime: 300000, // 5 minutes
-    }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['dashboardData', user?.id],
+    queryFn: () => fetchDashboardData(user?.id),
+    enabled: !!user?.id,
+    staleTime: 300000, // 5 minutes
+  });
 
   if (isLoading) return <div className="loading-container"><Loader /></div>;
 

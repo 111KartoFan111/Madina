@@ -1,0 +1,91 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modal-container {
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    margin: 0 15px;
+  }
+  
+  .modal-content {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+    max-height: 90vh;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  
+  .modal-close:hover {
+    color: var(--error-color);
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+  }
+  
+  /* styles/Loader.css */
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 3px solid var(--primary-color);
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  .loader-small .spinner {
+    width: 20px;
+    height: 20px;
+    border-width: 2px;
+  }
+  
+  .loader-large .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

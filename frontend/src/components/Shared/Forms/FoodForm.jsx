@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Loader from '../UI/Loader';
-import '../../styles/Forms.css';
+import '../../../styles/Forms.css';
 
 const FoodForm = ({ onSubmit, isLoading }) => {
   const [formData, setFormData] = useState({
@@ -14,9 +14,9 @@ const FoodForm = ({ onSubmit, isLoading }) => {
     serving_size: '',
     category: 'other'
   });
-  
+
   const [errors, setErrors] = useState({});
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -24,51 +24,49 @@ const FoodForm = ({ onSubmit, isLoading }) => {
       [name]: value
     }));
   };
-  
+
   const validate = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Food name is required';
     }
-    
+
     if (!formData.calories) {
       newErrors.calories = 'Calories are required';
     } else if (isNaN(formData.calories) || formData.calories < 0) {
       newErrors.calories = 'Calories must be a positive number';
     }
-    
+
     if (!formData.protein) {
       newErrors.protein = 'Protein amount is required';
     } else if (isNaN(formData.protein) || formData.protein < 0) {
       newErrors.protein = 'Protein must be a positive number';
     }
-    
+
     if (!formData.carbs) {
       newErrors.carbs = 'Carbs amount is required';
     } else if (isNaN(formData.carbs) || formData.carbs < 0) {
       newErrors.carbs = 'Carbs must be a positive number';
     }
-    
+
     if (!formData.fat) {
       newErrors.fat = 'Fat amount is required';
     } else if (isNaN(formData.fat) || formData.fat < 0) {
       newErrors.fat = 'Fat must be a positive number';
     }
-    
     if (!formData.serving_size) {
       newErrors.serving_size = 'Serving size is required';
     } else if (isNaN(formData.serving_size) || formData.serving_size < 0) {
       newErrors.serving_size = 'Serving size must be a positive number';
     }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validate()) {
       // Convert string values to numbers
       const numericFormData = {
@@ -81,11 +79,11 @@ const FoodForm = ({ onSubmit, isLoading }) => {
         sugar: formData.sugar ? Number(formData.sugar) : 0,
         serving_size: Number(formData.serving_size)
       };
-      
+
       onSubmit(numericFormData);
     }
   };
-  
+
   return (
     <form className="form" onSubmit={handleSubmit}>
       <div className="form-group">
@@ -100,7 +98,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
         />
         {errors.name && <span className="error">{errors.name}</span>}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="category">Category</label>
         <select
@@ -118,7 +116,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           <option value="other">Other</option>
         </select>
       </div>
-      
+
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="calories">Calories</label>
@@ -132,7 +130,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           />
           {errors.calories && <span className="error">{errors.calories}</span>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="serving_size">Serving Size (g)</label>
           <input
@@ -146,7 +144,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           {errors.serving_size && <span className="error">{errors.serving_size}</span>}
         </div>
       </div>
-      
+
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="protein">Protein (g)</label>
@@ -160,7 +158,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           />
           {errors.protein && <span className="error">{errors.protein}</span>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="carbs">Carbs (g)</label>
           <input
@@ -173,7 +171,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           />
           {errors.carbs && <span className="error">{errors.carbs}</span>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="fat">Fat (g)</label>
           <input
@@ -187,7 +185,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           {errors.fat && <span className="error">{errors.fat}</span>}
         </div>
       </div>
-      
+
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="fiber">Fiber (g)</label>
@@ -201,7 +199,7 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           />
           {errors.fiber && <span className="error">{errors.fiber}</span>}
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="sugar">Sugar (g)</label>
           <input
@@ -215,10 +213,10 @@ const FoodForm = ({ onSubmit, isLoading }) => {
           {errors.sugar && <span className="error">{errors.sugar}</span>}
         </div>
       </div>
-      
-      <button 
-        type="submit" 
-        className="submit-button" 
+
+      <button
+        type="submit"
+        className="submit-button"
         disabled={isLoading}
       >
         {isLoading ? <Loader size="small" /> : 'Save Food'}

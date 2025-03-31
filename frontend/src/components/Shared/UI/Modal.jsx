@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import '../../styles/Modal.css';
+import '../../../styles/Modal.css';
 
 const Modal = ({ children, onClose }) => {
   const modalRef = useRef();

@@ -1,0 +1,134 @@
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .submit-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: var(--transition);
+  }
+  
+  .submit-button:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .submit-button:disabled {
+    background-color: var(--text-light);
+    cursor: not-allowed;
+  }
+  
+  .food-selection-container {
+    margin-bottom: 20px;
+  }
+  
+  .food-selection {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  
+  .add-food-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    height: 40px;
+  }
+  
+  .meal-items-container {
+    margin-top: 20px;
+  }
+  
+  .meal-items {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .meal-items-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    background-color: #f5f5f5;
+    padding: 10px;
+    font-weight: 500;
+  }
+  
+  .meal-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+  }
+  
+  .meal-totals {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 10px;
+    background-color: #f5f5f5;
+    font-weight: 500;
+  }
+  
+  .nutrition-summary {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .nutrition-item {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .remove-button {
+    background-color: #f44336;
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    justify-self: center;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .no-items {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-light);
+  }
+  
+  @media screen and (max-width: 768px) {
+    .food-selection {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .add-food-button {
+      width: 100%;
+    }
+    
+    .meal-items-header, .meal-item, .meal-totals {
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+      font-size: 14px;
+    }
+  }

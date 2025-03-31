@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import Card from '../Shared/UI/Card';
 import Modal from '../Shared/UI/Modal';
@@ -16,26 +16,25 @@ const FoodTracker = () => {
   const queryClient = useQueryClient();
 
   // Fetch foods
-  const { data: foods, isLoading, error } = useQuery(
-    ['foods', user?.id], 
-    () => fetchFoods(user?.id),
-    {
-      enabled: !!user?.id,
-    }
-  );
+  const { data: foods, isLoading, error } = useQuery({
+    queryKey: ['foods', user?.id],
+    queryFn: () => fetchFoods(user?.id),
+    enabled: !!user?.id
+  });
 
   // Add food mutation
-  const addFoodMutation = useMutation(addFood, {
+  const addFoodMutation = useMutation({
+    mutationFn: addFood,
     onSuccess: () => {
-      queryClient.invalidateQueries(['foods', user?.id]);
+      queryClient.invalidateQueries({ queryKey: ['foods', user?.id] });
       setShowAddModal(false);
     }
   });
-
-  // Delete food mutation
-  const deleteFoodMutation = useMutation(deleteFood, {
+  
+  const deleteFoodMutation = useMutation({
+    mutationFn: deleteFood,
     onSuccess: () => {
-      queryClient.invalidateQueries(['foods', user?.id]);
+      queryClient.invalidateQueries({ queryKey: ['foods', user?.id] });
     }
   });
 
